@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>marksheet</title>
+    <link rel="stylesheet" href="marksheet.css">
+    <script src="jquery-3.4.1.min.js"></script>
+  </head>
+  <body>
+    <img src="file:///D:/programing/arb.jpg" alt="">
+    <div class="div">
+      <h1 class="addre1"> A.R.Bhatt School</h1>
+    </div>
+    <address class="">
+      Anand Wadi Veraval Road, Una, Gujarat 362560 ph.no:073599 00080
+    </address>
+    <div class="top">
+      <table align="center">
+        <tr class="tr1">
+          <th>Teacher Name</th>
+          <th>Standard</th>
+          <th>Division</th>
+          <th>Exam Name</th>
+        </tr>
+        <tr>
+          <td>Nayan Sir</td>
+          <td>12</td>
+          <td>B</td>
+          <td>HSC</td>
+        </tr>
+      </table>
+    </div>
+    <div class="center">
+      <table id="mytable" align="center">
+        <tr>
+          <th>RollNo</th>
+          <th>Name</th>
+          <th>Acount</th>
+          <th>English</th>
+          <th>Eco</th>
+          <th>Total</th>
+          <th>Persentage</th>
+          <th>Action</th>
+        </tr>
+      </table>
+    </div>
+    <br>
+    <script>
+    $(".tr1").css("color","red")
+    $(".but1").css("align","center")
+      var row_no = 0;
+
+      function summary() {
+        var totals = $('.student');
+        $('#total').html(totals.length);
+
+        var max = 0,min =400, avg = 0, total = 0, sum =0;
+        for (var i = 0; i < totals.length; i++) {
+          sum = Number(totals[i].innerHTML);
+          if (sum > max)
+            max =sum;
+          if (sum < min)
+            min = sum;
+          total = total + sum;
+        }
+
+        $("#Highest").html(max);
+        if(totals.length > 0) {
+          avg = total / totals.length;
+          $("#Lowest").html(min);
+        } else {
+          $("#Lowest").html('0');
+        }
+        $("#avarege").html(avg);
+      }
+
+      $(document).ready(function(){
+        $("#addrow").click(function(){
+          $(".addre1").css("color","pink");
+          $(".tr4").css("color","blue");
+          $("#mytable").append('<tr class="tr4" id="student' + row_no + '"><td><input type="text" value=""></td>' +
+                          '<td> <input type="text" name="" value=""> </td>'+
+                          '<td><input type="text" class="subject' + row_no + '" id="eng'+ row_no +'" data-id="' + row_no + '"></td>'+
+                          '<td><input type="text" class="subject' + row_no + '" id="aco'+ row_no +'" data-id="' + row_no + '"></td>'+
+                          '<td><input type="text" class="subject' + row_no + '" id="eco'+ row_no +'" data-id="' + row_no + '"></td>'+
+                          '<td id="tot'+ row_no +'" class= "student"></td>'+
+                          '<td id="per'+ row_no +'"></td>' +
+                          '<td><button type="button" id="deleterow' + row_no + '" data-id="' + row_no + '">delete</button></td></tr>') ;
+
+          $(".subject" + row_no).keyup(function(){
+            var id = $(this).attr('data-id');
+            var english = $("#eng" + id).val();
+            var acount = $("#aco" + id).val();
+            var eco = $("#eco" + id).val();
+            var result = Number(acount) + Number(english) + Number(eco);
+            var percent = result / 3;
+            $('#per' + id).html(percent);
+            $('#tot' + id).html(result);
+            summary();
+          });
+
+          $("#deleterow" + row_no).click(function(){
+            var id = $(this).attr('data-id');
+            $("#student" + id).remove();
+            summary();
+          });
+          row_no += 1;
+
+          summary();
+        });
+      });
+    </script>
+    <button class="but1" id="addrow" type="button">insert</button>
+    <h2 align="center">Exam Summery</h2>
+    <div class="table">
+      <table align="center">
+        <tr>
+         <th>Total student</th>
+         <td id="total">0</td>
+        </tr>
+        <tr>
+          <th>Highest</th>
+          <td id="Highest">0</td>
+        </tr>
+        <tr>
+          <th>avarege</th>
+          <td id="avarege">0</td>
+        </tr>
+        <tr>
+          <th>Lowest</th>
+          <td id="Lowest">0</td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

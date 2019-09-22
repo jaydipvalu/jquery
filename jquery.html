@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>marksheet</title>
+    <link rel="stylesheet" href="marksheet.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <script src="jquery-3.4.1.min"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+ </head>
+  <body>
+    <img src="file:///D:/programing/arb.jpg" alt="">
+    <div class="div">
+    <h1 > A.R.Bhatt School</h1>
+  </div>
+
+    <address class="">
+      <i class="fas fa-school"></i>
+      Anand Wadi Veraval Road, Una, Gujarat 362560 ph.no:073599 00080
+      <i class="fas fa-school"></i>
+    </address>
+    <div class="top">
+    <table align="center">
+      <tr>
+        <th>Teacher Name</th>
+        <th>Standard</th>
+        <th>Division</th>
+        <th>Exam Name</th>
+      </tr>
+      <tr>
+        <td>Nayan Sir</td>
+        <td>12</td>
+        <td>B</td>
+        <td>HSC</td>
+      </tr>
+    </table>
+  </div>
+  <div class="center">
+    <table id="mytable" align="center">
+      <tr>
+        <th>RollNo</th>
+        <th>Name</th>
+        <th>Acount</th>
+        <th>English</th>
+        <th>Eco</th>
+        <th>Total</th>
+        <th>Persentage</th>
+      </tr>
+
+    </table>
+  </div>
+  <br>
+    <script>
+      var row_no =0;
+      function calculateTotal(no){
+        var Acount = document.getElementById("aco" +no).value;
+        var English = document.getElementById("eng" +no).value;
+        var Eco = document.getElementById("eco" +no).value;
+        var result = Number(Acount) + Number(English) + Number(Eco);
+        var percent = result/3;
+
+        document.getElementById('per'+ no).innerHTML = percent;
+        document.getElementById('tot'+ no).innerHTML = result;
+        summary();
+      }
+
+      function addRow(){
+        var table = document.getElementById("mytable");
+        var tr =table.insertRow()
+        tr.setAttribute('id','student'+row_no);
+        tr.innerHTML =  '<td><input type="text" value=""></td>' +
+                        '<td> <input type="text" name="" value=""> </td>'+
+                        '<td><input type="text" id="eng'+ row_no +'" onkeyup="calculateTotal('+ row_no +')"></td>'+
+                        '<td><input type="text" id="aco'+ row_no +'" onkeyup="calculateTotal('+ row_no +')"></td>'+
+                        '<td><input type="text" id="eco'+ row_no +'" onkeyup="calculateTotal('+ row_no +')"></td>'+
+                        '<td id="tot'+ row_no +'" class= "student"></td>'+
+                        '<td id="per'+ row_no +'"></td>'+
+                        '<button type="button" onclick="deleteRow('+ row_no+')" name="button">delete</button>';
+                        row_no += 1;
+        summary();
+      }
+
+      function deleteRow(no){
+        var tr =document.getElementById("student" +no);
+        document.getElementById("mytable").deleteRow(tr.rowIndex);
+        summary();
+      }
+
+      function summary() {
+        var totals = document.getElementsByClassName('student');
+        document.getElementById('total').innerHTML = totals.length;
+
+        var max = 0,min =400  ,avg = 0,total = 0,sum =0;
+        for (var i = 0; i < totals.length; i++) {
+          sum = Number(totals[i].innerHTML);
+          if (sum > max)
+            max =sum;
+          if (sum < min)
+            min = sum;
+          total = total + sum;
+        }
+        avg = total / totals.length;
+
+        document.getElementById("Highest").innerHTML = max;
+        document.getElementById("Lowest").innerHTML = min;
+        document.getElementById("avarege").innerHTML = avg;
+       }
+
+
+
+
+    </script>
+    <button class="mull" type="button" onclick=" addRow()">insert</button>
+     <h2 align="center">Exam Summery</h2>
+    <div class="table">
+      <table align="center">
+    <tr>
+       <th>Total student</th>
+       <td id="total">0</td>
+    </tr>
+       <th>Highest</th>
+       <td id="Highest">0</td>
+     <tr>
+        <th >avarege</th>
+        <td id="avarege">0</td>
+     </tr>
+      <tr>
+        <th>Lowest</th>
+        <td id="Lowest">0</td>
+      </tr>
+
+
+  </table>
+   </div>
+
+ </body>
+</html>
